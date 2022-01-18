@@ -4,13 +4,16 @@ import adalabersList from '../data/data.json';
 //import callToApi from '../services/api';
 
 function App() {
-  const[list, setList] = useState(adalabersList.results);
-  const[name, setName]=useState('');
-  const[mentorin,setMentorin]=useState('');
-  const[speciality,setSpeciality]=useState('');
-  const[search,setSearch]=useState('');
+  const [list, setList] = useState(adalabersList.results);
+  const [name, setName] = useState('');
+  const [mentorin, setMentorin] = useState('');
+  const [speciality, setSpeciality] = useState('');
+  const [search, setSearch] = useState('');
+  const[searchMentorin,setSearchMentorin]=useState('');
 
-  const filteredAdalaber = list.filter((oneAdalaber)=>oneAdalaber.name.toLowerCase().includes(search.toLowerCase()));
+  const filteredAdalaber = list.filter((oneAdalaber) =>
+    oneAdalaber.name.toLowerCase().includes(search.toLowerCase()) && oneAdalaber.counselor.toLowerCase().includes(searchMentorin.toLowerCase())
+  );
 
   const tableHtml = filteredAdalaber.map((adalaber, id) => (
     <tr key={id}>
@@ -19,38 +22,41 @@ function App() {
       <td>{adalaber.speciality}</td>
     </tr>
   ));
-  
-  const handleSubmit=(event)=>{
+
+  const handleSubmit = (event) => {
     event.preventDefault();
   };
-  const handleNewName=(event)=>{
+  const handleNewName = (event) => {
     setName(event.target.value);
   };
 
-  const handleNewMentorin=(event)=>{
+  const handleNewMentorin = (event) => {
     setMentorin(event.target.value);
   };
-  
-  const handleNewSpeciality=(event)=>{
+
+  const handleNewSpeciality = (event) => {
     setSpeciality(event.target.value);
   };
-  
-  const handleSearch =(event)=>{
+
+  const handleSearch = (event) => {
     setSearch(event.target.value);
   };
 
-  const handleClick=(event)=>{
+  const handleSearchMentorin=(event)=>{
+    setSearchMentorin(event.target.value);
+  };
+
+  const handleClick = (event) => {
     event.preventDefault();
-    const newAdalaber={
-      name:name,
+    const newAdalaber = {
+      name: name,
       counselor: mentorin,
-      speciality: speciality
+      speciality: speciality,
     };
     setList([...list, newAdalaber]);
     setName('');
     setMentorin('');
     setSpeciality('');
-    
   };
 
   return (
@@ -59,7 +65,14 @@ function App() {
         <h1>Mis Adalabers</h1>
         <form onSubmit={handleSubmit}>
           <label htmlFor="search">Nombre:</label>
-          <input type="text" value={search} onChange={handleSearch}/>
+          <input type="text" value={search} onChange={handleSearch} />
+          <label htmlFor="choose">Escoge una tutora:</label>
+          <select name="options" id="options" onChange={handleSearchMentorin}>
+            <option value="all">Escoge una opción</option>
+            <option value="dayana">Dayana</option>
+            <option value="yanelis">Yanelis</option>
+            <option value="iván">Iván</option>
+          </select>
         </form>
       </header>
       <main>
@@ -78,10 +91,18 @@ function App() {
           <label htmlFor="name">Nombre:</label>
           <input type="text" onChange={handleNewName} value={name} />
           <label htmlFor="mentorin">Tutora</label>
-          <input type="text" onChange={handleNewMentorin} value={mentorin}/>
+          <input type="text" onChange={handleNewMentorin} value={mentorin} />
           <label htmlFor="speciality">Especialidad</label>
-          <input type="text" onChange={handleNewSpeciality} value={speciality}/>
-         <input type="submit" onClick={handleClick} value= "Añadir una nueva Adalaber"/>  
+          <input
+            type="text"
+            onChange={handleNewSpeciality}
+            value={speciality}
+          />
+          <input
+            type="submit"
+            onClick={handleClick}
+            value="Añadir una nueva Adalaber"
+          />
         </form>
       </main>
     </div>
