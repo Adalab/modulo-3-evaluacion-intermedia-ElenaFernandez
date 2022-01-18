@@ -8,8 +8,11 @@ function App() {
   const[name, setName]=useState('');
   const[mentorin,setMentorin]=useState('');
   const[speciality,setSpeciality]=useState('');
+  const[search,setSearch]=useState('');
 
-  const tableHtml = list.map((adalaber, id) => (
+  const filteredAdalaber = list.filter((oneAdalaber)=>oneAdalaber.name.toLowerCase().includes(search.toLowerCase()));
+
+  const tableHtml = filteredAdalaber.map((adalaber, id) => (
     <tr key={id}>
       <td> {adalaber.name}</td>
       <td>{adalaber.counselor}</td>
@@ -31,6 +34,10 @@ function App() {
   const handleNewSpeciality=(event)=>{
     setSpeciality(event.target.value);
   };
+  
+  const handleSearch =(event)=>{
+    setSearch(event.target.value);
+  };
 
   const handleClick=(event)=>{
     event.preventDefault();
@@ -50,6 +57,10 @@ function App() {
     <div>
       <header>
         <h1>Mis Adalabers</h1>
+        <form onSubmit={handleSubmit}>
+          <label htmlFor="search">Nombre:</label>
+          <input type="text" value={search} onChange={handleSearch}/>
+        </form>
       </header>
       <main>
         <table>
