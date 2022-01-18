@@ -1,15 +1,19 @@
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 import '../styles/App.scss';
-import adalabersList from '../data/data.json';
-//import callToApi from '../services/api';
+//import adalaberList from '../data/data.json'
+import callToApi from '../services/api';
 
 function App() {
-  const [list, setList] = useState(adalabersList.results);
+  const [list, setList] = useState([]);
   const [name, setName] = useState('');
   const [mentorin, setMentorin] = useState('');
   const [speciality, setSpeciality] = useState('');
   const [search, setSearch] = useState('');
   const[searchMentorin,setSearchMentorin]=useState('');
+   
+useEffect(()=>{
+  callToApi().then(response => {setList(response)});
+}, []);
 
   const filteredAdalaber = list.filter((oneAdalaber) =>
     oneAdalaber.name.toLowerCase().includes(search.toLowerCase()) && oneAdalaber.counselor.toLowerCase().includes(searchMentorin.toLowerCase())
@@ -57,11 +61,12 @@ function App() {
     setName('');
     setMentorin('');
     setSpeciality('');
+    console.log(list)
   };
 
   return (
     <div>
-      <header>
+      <header className="header">
         <h1>Mis Adalabers</h1>
         <form onSubmit={handleSubmit}>
           <label htmlFor="search">Nombre:</label>
@@ -77,7 +82,7 @@ function App() {
       </header>
       <main>
         <table>
-          <thead>
+          <thead className="thead">
             <tr>
               <th>Nombre</th>
               <th>Tutora</th>
