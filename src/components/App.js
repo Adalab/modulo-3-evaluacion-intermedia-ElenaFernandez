@@ -1,6 +1,5 @@
 import { useState,useEffect } from 'react';
 import '../styles/App.scss';
-//import adalaberList from '../data/data.json'
 import callToApi from '../services/api';
 
 function App() {
@@ -20,7 +19,7 @@ useEffect(()=>{
   );
 
   const tableHtml = filteredAdalaber.map((adalaber, id) => (
-    <tr key={id}>
+    <tr key={id} className="bodyt">
       <td> {adalaber.name}</td>
       <td>{adalaber.counselor}</td>
       <td>{adalaber.speciality}</td>
@@ -61,7 +60,7 @@ useEffect(()=>{
     setName('');
     setMentorin('');
     setSpeciality('');
-    console.log(list)
+    
   };
 
   return (
@@ -85,28 +84,30 @@ useEffect(()=>{
           <thead className="thead">
             <tr>
               <th>Nombre</th>
-              <th>Tutora</th>
+              <th className="thead_tutor">Tutora</th>
               <th>Especialidad</th>
             </tr>
           </thead>
           <tbody>{tableHtml}</tbody>
         </table>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} className="form">
           <h2>Añadir una nueva Adalaber</h2>
           <label htmlFor="name">Nombre:</label>
-          <input type="text" onChange={handleNewName} value={name} />
-          <label htmlFor="mentorin">Tutora</label>
-          <input type="text" onChange={handleNewMentorin} value={mentorin} />
-          <label htmlFor="speciality">Especialidad</label>
+          <input type="text" onChange={handleNewName} value={name} className="input" />
+          <label htmlFor="mentorin" className="label">Tutora</label>
+          <input type="text" onChange={handleNewMentorin} value={mentorin}className="input" />
+          <label htmlFor="speciality" className="label">Especialidad</label>
           <input
             type="text"
             onChange={handleNewSpeciality}
             value={speciality}
+            className="input"
           />
           <input
             type="submit"
             onClick={handleClick}
             value="Añadir una nueva Adalaber"
+            className="btn"
           />
         </form>
       </main>

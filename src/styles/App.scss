@@ -9,3 +9,23 @@
    
     
 }
+.form{
+    border-top: 2px solid pink;
+    display: flex;
+    flex-direction: column;
+}
+.input{
+    width: 200px;
+   margin-top: 10px;
+  
+}
+.label{
+    margin-top: 5px;
+}
+.btn{
+    width: 200px;
+    margin-top: 10px;
+    background-color: pink;
+    border: 2px solid pink;
+    border-radius: 10px;
+}
