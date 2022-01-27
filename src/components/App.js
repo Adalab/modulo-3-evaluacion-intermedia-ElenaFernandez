@@ -23,6 +23,9 @@ useEffect(()=>{
       <td> {adalaber.name}</td>
       <td>{adalaber.counselor}</td>
       <td>{adalaber.speciality}</td>
+      <td>{adalaber.social_networks.map((redes,index)=>{
+        return <a key={index} href={redes.url}>{redes.name}</a>
+      })}</td>
     </tr>
   ));
 
@@ -86,6 +89,7 @@ useEffect(()=>{
               <th>Nombre</th>
               <th className="thead_tutor">Tutora</th>
               <th>Especialidad</th>
+              <th>Redes</th>
             </tr>
           </thead>
           <tbody>{tableHtml}</tbody>
